@@ -6,11 +6,16 @@ const port = 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.set('view engine','pug')
 
-app.get("/",(req,res)=>{
-	res.send('hello world !')
+app.get("/",async (req,res)=>{
+	const users = await getUsers()
+	res.render('index',{users})
 })
 
+app.get("/adduser",(req,res)=>{
+	res.render('user-add',{title:"add user"})
+})
 app.post("/sync",(req,res)=>{
 	sync()
 	res.send('synced')
@@ -18,7 +23,7 @@ app.post("/sync",(req,res)=>{
 
 app.get("/users",async (req,res)=>{
 	const users = await getUsers()
-	 res.json(users)
+	res.json(users)
 })
 app.patch("/user/:id",async (req,res) => {
 	const user = await updateUser({ id : req.params.id , username: req.body.username})
