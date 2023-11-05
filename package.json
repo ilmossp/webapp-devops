@@ -1,4 +1,8 @@
 {
+	"name":"devops workshop mock application",
+	"description":"a simple express app for testing",
+	"author":"github.com/ilmossp",
+	"main":"app.js",
 	"type": "module",
 	"dependencies": {
 		"dotenv": "^16.3.1",
