@@ -1,0 +1,110 @@
+html
+  head
+    title Add User Form
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 300px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      button[type="submit"] {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+  body
+    h1 Add User
+    form(id="userForm" ,action="/user", method="post")
+      label(for="username") Username:
+      input(type="text", name="username", id="username", required)
+
+      label(for="password") Password:
+      input(type="password", name="password", id="password", required)
+
+      label(for="type") Type:
+      input(type="text", name="type", id="type", required)
+
+      button(type="submit") Add User
+
+  script.
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('userForm');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(form); // Get form data
+
+        // Convert formData to a JSON object (optional)
+        const formDataObject = {};
+        formData.forEach((value, key) => {
+          formDataObject[key] = value;
+        });
+
+        // Perform a fetch request to send the form data to an API
+        fetch('/user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formDataObject),
+        })
+          .then(response => {
+            if (response.ok) {
+              // Handle a successful API response, e.g., display a success message
+              console.log('User added successfully.');
+              // Optionally reset the form
+              form.reset();
+            } else {
+              // Handle API errors, e.g., display an error message
+              console.error('Failed to add user.');
+            }
+          })
+          .catch(error => {
+            // Handle fetch errors
+            console.error('Error:', error);
+          });
+      });
+    });

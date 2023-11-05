@@ -1,0 +1,46 @@
+html
+  head
+    title User Table
+    style.
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+  body
+    h1 Users
+    p
+      | If you'd like to add a new user, click
+      a(href="/adduser") here
+      | .
+
+
+    table
+      thead
+        tr
+          th ID
+          th Username
+          th Password
+          th Type
+          th Created At
+          th Updated At
+
+      tbody
+        each user in users
+          tr
+            td= user.id
+            td= user.username
+            td= user.password
+            td= user.type
+            td= user.createdAt
+            td= user.updatedAt
