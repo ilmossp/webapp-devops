@@ -1,6 +1,7 @@
 import { Sequelize, Model, DataTypes } from "sequelize"
+import 'dotenv/config'
 
-const sequelize = new Sequelize('sqlite:test.db')
+const sequelize = new Sequelize(process.env.DB_URL)
 
 
 class User extends Model { }
